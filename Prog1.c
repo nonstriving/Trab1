@@ -61,6 +61,7 @@ int main() {
 
 	do {
 		readPerson();
+		writePersonToFile(data);
 		printf("Nova pessoa? (y/n)\n");
 		scanf("%c", &option);
 	} while(option=='y');
