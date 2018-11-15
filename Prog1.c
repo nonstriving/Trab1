@@ -15,32 +15,23 @@ typedef struct {
 
 person p;
 
+void getText(char *message, char *variable, int size){
+    printf("\n %s: ", message);
+    fgets(variable, sizeof(char) * size, stdin);
+    sscanf(variable, "%[^\n]", variable);
+}
+
 // Leitura de um registro Pessoa
 void readPerson() {
 
-	printf("Key: ");
-	fgets(p.key, sizeof(p.key), stdin);
-
-	printf("Last name: ");
-	fgets(p.lastname, sizeof(p.lastname), stdin);
-
-	printf("First name: ");
-	fgets(p.firstname, sizeof(p.firstname), stdin);
-
-	printf("Address: ");
-	fgets(p.address, sizeof(p.address), stdin);
-
-	printf("City: ");
-	fgets(p.city, sizeof(p.city), stdin);
-
-	printf("State: ");
-	fgets(p.state, sizeof(p.state), stdin);
-
-	printf("Zip Code: ");
-	fgets(p.zip, sizeof(p.zip), stdin);
-
-	printf("Phone: ");
-	fgets(p.phone, sizeof(p.phone), stdin);
+	getText("Key", p.key, sizeof(p.key));
+	getText("Last name", p.lastname, sizeof(p.lastname));
+	getText("First name", p.firstname, sizeof(p.firstname));
+	getText("Address", p.address, sizeof(p.address));
+	getText("City", p.city, sizeof(p.city));
+	getText("State", p.state, sizeof(p.state));
+	getText("Zip code", p.zip, sizeof(p.zip));
+	getText("Phone", p.phone, sizeof(p.phone));
 }
 
 void writePersonToFile(FILE *file) {
