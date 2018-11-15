@@ -19,7 +19,7 @@ person p;
 void readPerson() {
 
 	printf("Key: ");
-	scanf("%s", &p.key);
+	fgets(p.key, 2, stdin);
 
 	printf("Last name: ");
 	scanf("%s", &p.lastname);
