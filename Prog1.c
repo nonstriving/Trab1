@@ -11,12 +11,16 @@ typedef struct {
 	char phone[14]
 } person;
 
-person p;
+char field[20];
 
-
-// Campo genérico
+// Leitura de campo generico
 void readField(){
-	char field[20];
 	scanf("%s", &field);
 }
+
+void readPerson(){
+	person p;
+
+}
+
 
