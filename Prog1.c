@@ -41,10 +41,16 @@ void readPerson(){
 	scanf("%s", &p.phone);
 }
 
+void writePersonToFile(){
+
+}
+
 int main(){
 
 	// Ler registros Pessoa
 	char option;
+
+	FILE *data = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rw");
 
 	printf("Nova pessoa? (y/n)\n");
 	scanf("%c", &option);
