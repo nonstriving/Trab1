@@ -59,12 +59,12 @@ int main(){
 	// Ler registros Pessoa
 	char option;
 
-	printf("Nova pessoa? (y/n)\n");
-	scanf("%c", &option);
-
-	if(option=='y'){
+	do{
 		readPerson();
+		printf("Nova pessoa? (y/n)\n");
+		scanf("%c", &option);
 	}
+	while(option=='y');
 
 	return 0;
 }
