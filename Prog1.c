@@ -14,7 +14,7 @@ typedef struct {
 person p;
 
 // Leitura de um registro Pessoa
-void readPerson(){
+void readPerson() {
 
 	printf("Key: ");
 	scanf("%s", &p.key);
@@ -41,7 +41,7 @@ void readPerson(){
 	scanf("%s", &p.phone);
 }
 
-void writePersonToFile(FILE *file){
+void writePersonToFile(FILE *file) {
 	fwrite(&p.key, sizeof(char), sizeof(p.key)/sizeof(char), file);
 	fwrite(&p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char), file);
 	fwrite(&p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char), file);
@@ -52,19 +52,18 @@ void writePersonToFile(FILE *file){
 	fwrite(&p.phone, sizeof(char), sizeof(p.phone)/sizeof(char), file);
 }
 
-int main(){
+int main() {
 
 	FILE *data = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rw");
 
 	// Ler registros Pessoa
 	char option;
 
-	do{
+	do {
 		readPerson();
 		printf("Nova pessoa? (y/n)\n");
 		scanf("%c", &option);
-	}
-	while(option=='y');
+	} while(option=='y');
 
 	return 0;
 }
