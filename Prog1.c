@@ -3,14 +3,14 @@
 // Programa 1
 // campos de tamanho fixo em bytes + registros de tamanho fixo em bytes
 typedef struct {
-	char key[2];
-	char lastname[20];
-	char firstname[20];
-	char address[20];
-	char city[10];
-	char state[10];
-	char zip[10];
-	char phone[14];
+	char key[3];
+	char lastname[21];
+	char firstname[21];
+	char address[21];
+	char city[11];
+	char state[11];
+	char zip[11];
+	char phone[15];
 } person;
 
 person p;
@@ -24,7 +24,7 @@ void getText(char *message, char *variable, int size){
 // Leitura de um registro Pessoa
 void readPerson() {
 
-	getText("Key", p.key, sizeof(p.key));
+	getText("Key", p.key, sizeof(p.key)); 
 	getText("Last name", p.lastname, sizeof(p.lastname));
 	getText("First name", p.firstname, sizeof(p.firstname));
 	getText("Address", p.address, sizeof(p.address));
