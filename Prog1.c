@@ -10,10 +10,10 @@ typedef struct {
 	char state[10]
 	char zip[10]
 	char phone[14]
-} pessoa;
+} person;
 
-pessoa p;
+person p;
 
-void lerdados(FILE * dados){
+void read(FILE * data){
 	
 }
