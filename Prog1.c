@@ -18,9 +18,33 @@ void readField(){
 	scanf("%s", &field);
 }
 
+//Leitura de um registro Pessoa
 void readPerson(){
 	person p;
 
+	printf("Key: ");
+	scanf("%s", &p.key);
+
+	printf("Last name: ");
+	scanf("%s", &p.lastname);
+
+	printf("First name: ");
+	scanf("%s", &p.firstname);
+
+	printf("Address: ");
+	scanf("%s", &p.address);
+
+	printf("City: ");
+	scanf("%s", &p.city);
+
+	printf("State: ");
+	scanf("%s", &p.state);	
+
+	printf("Zip Code: ");
+	scanf("%s", &p.zip);
+
+	printf("Phone: ");
+	scanf("%s", &p.phone);
 }
 
 
