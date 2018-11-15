@@ -11,16 +11,10 @@ typedef struct {
 	char phone[14]
 } person;
 
-char field[20];
+person p;
 
-// Leitura de campo generico
-void readField(){
-	scanf("%s", &field);
-}
-
-//Leitura de um registro Pessoa
+// Leitura de um registro Pessoa
 void readPerson(){
-	person p;
 
 	printf("Key: ");
 	scanf("%s", &p.key);
@@ -47,4 +41,18 @@ void readPerson(){
 	scanf("%s", &p.phone);
 }
 
+int main(){
+
+	// Ler registros Pessoa
+	char option;
+
+	printf("Nova pessoa? (y/n)\n");
+	scanf("%c", &option);
+
+	if(option=='y'){
+		readPerson();
+	}
+
+	return 0;
+}
 
