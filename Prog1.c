@@ -1,6 +1,5 @@
 // Programa 1
 // campos de tamanho fixo em bytes + registros de tamanho fixo em bytes
-
 typedef struct {
 	char key[2]
 	char lastname[20]
@@ -14,6 +13,10 @@ typedef struct {
 
 person p;
 
-void read(FILE * data){
-	
+
+// Campo genérico
+void readField(){
+	char field[20];
+	scanf("%s", &field);
 }
+
