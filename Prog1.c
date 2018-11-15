@@ -19,28 +19,28 @@ person p;
 void readPerson() {
 
 	printf("Key: ");
-	fgets(p.key, 2, stdin);
+	fgets(p.key, sizeof(p.key), stdin);
 
 	printf("Last name: ");
-	scanf("%s", &p.lastname);
+	fgets(p.lastname, sizeof(p.lastname), stdin);
 
 	printf("First name: ");
-	scanf("%s", &p.firstname);
+	fgets(p.firstname, sizeof(p.firstname), stdin);
 
 	printf("Address: ");
-	scanf("%s", &p.address);
+	fgets(p.address, sizeof(p.address), stdin);
 
 	printf("City: ");
-	scanf("%s", &p.city);
+	fgets(p.city, sizeof(p.city), stdin);
 
 	printf("State: ");
-	scanf("%s", &p.state);	
+	fgets(p.state, sizeof(p.state), stdin);
 
 	printf("Zip Code: ");
-	scanf("%s", &p.zip);
+	fgets(p.zip, sizeof(p.zip), stdin);
 
 	printf("Phone: ");
-	scanf("%s", &p.phone);
+	fgets(p.phone, sizeof(p.phone), stdin);
 }
 
 void writePersonToFile(FILE *file) {
