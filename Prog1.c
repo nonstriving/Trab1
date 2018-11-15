@@ -41,16 +41,23 @@ void readPerson(){
 	scanf("%s", &p.phone);
 }
 
-void writePersonToFile(){
-
+void writePersonToFile(FILE *file){
+	fwrite(&p.key, sizeof(char), 2, file);
+	fwrite(&p.lastname, sizeof(char), 20, file);
+	fwrite(&p.firstname, sizeof(char), 20, file);
+	fwrite(&p.address, sizeof(char), 20, file);
+	fwrite(&p.city, sizeof(char), 10, file);
+	fwrite(&p.state, sizeof(char), 10, file);
+	fwrite(&p.zip, sizeof(char), 10, file);
+	fwrite(&p.phone, sizeof(char), 14, file);
 }
 
 int main(){
 
+	FILE *data = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rw");
+
 	// Ler registros Pessoa
 	char option;
-
-	FILE *data = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rw");
 
 	printf("Nova pessoa? (y/n)\n");
 	scanf("%c", &option);
