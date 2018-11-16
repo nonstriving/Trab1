@@ -16,7 +16,7 @@ typedef struct {
 
 person p;
 
-void getText(char *message, char *variable, int size){
+void getInput(char *message, char *variable, int size){
     printf("\n %s: ", message);
     fgets(variable, sizeof(char) * size, stdin);
     sscanf(variable, "%[^\n]", variable);
@@ -25,14 +25,14 @@ void getText(char *message, char *variable, int size){
 // Leitura de um registro Pessoa
 void readPerson() {
 
-	getText("Key", p.key, sizeof(p.key)); 
-	getText("Last name", p.lastname, sizeof(p.lastname));
-	getText("First name", p.firstname, sizeof(p.firstname));
-	getText("Address", p.address, sizeof(p.address));
-	getText("City", p.city, sizeof(p.city));
-	getText("State", p.state, sizeof(p.state));
-	getText("Zip code", p.zip, sizeof(p.zip));
-	getText("Phone", p.phone, sizeof(p.phone));
+	getInput("Key", p.key, sizeof(p.key)); 
+	getInput("Last name", p.lastname, sizeof(p.lastname));
+	getInput("First name", p.firstname, sizeof(p.firstname));
+	getInput("Address", p.address, sizeof(p.address));
+	getInput("City", p.city, sizeof(p.city));
+	getInput("State", p.state, sizeof(p.state));
+	getInput("Zip code", p.zip, sizeof(p.zip));
+	getInput("Phone", p.phone, sizeof(p.phone));
 }
 
 void writePersonToFile(FILE *file) {
@@ -56,7 +56,7 @@ int main() {
 	do {
 		readPerson();
 		writePersonToFile(data);
-		getText("Nova pessoa? (y/n)", &option, 3);
+		getInput("Nova pessoa? (y/n)", &option, 3);
 	} while(option=='y');
 
 	return 0;
