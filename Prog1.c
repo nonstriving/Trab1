@@ -76,7 +76,7 @@ void writePersonSortedByKey() {
 		p2 = p;
 		if(retrieveDataObject()){
 			writePersonToFile();
-		}
+			searchByKey(p.key);
 
 	}
 }
@@ -90,7 +90,7 @@ void writeData(){
 
 	do {
 		readPerson();
-		writePersonToFile();
+		writePersonSortedByKey();
 		writePersonToIndexFile();
 		printf("Nova pessoa? (y/n) ");
 		scanf("%c", &option);
