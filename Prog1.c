@@ -48,14 +48,14 @@ void readPerson() {
 
 void writePersonToFile() {
 	//fseek(file, 0, SEEK_SET);
-	fwrite(&p.key, sizeof(char), sizeof(p.key)/sizeof(char), file);
-	fwrite(&p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char), file);
-	fwrite(&p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char), file);
-	fwrite(&p.address, sizeof(char), sizeof(p.address)/sizeof(char), file);
-	fwrite(&p.city, sizeof(char), sizeof(p.city)/sizeof(char), file);
-	fwrite(&p.state, sizeof(char), sizeof(p.state)/sizeof(char), file);
-	fwrite(&p.zip, sizeof(char), sizeof(p.zip)/sizeof(char), file);
-	fwrite(&p.phone, sizeof(char), sizeof(p.phone)/sizeof(char), file);
+	fwrite(&p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file);
+	fwrite(&p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, file);
+	fwrite(&p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, file);
+	fwrite(&p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, file);
+	fwrite(&p.city, sizeof(char), sizeof(p.city)/sizeof(char) - 1, file);
+	fwrite(&p.state, sizeof(char), sizeof(p.state)/sizeof(char) - 1, file);
+	fwrite(&p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, file);
+	fwrite(&p.phone, sizeof(char), sizeof(p.phone)/sizeof(char) - 1, file);
 }
 
 void writeData(){
