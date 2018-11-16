@@ -15,6 +15,7 @@ typedef struct {
 } person;
 
 person p;
+person p2;
 int personSize;
 
 FILE *file;
@@ -46,6 +47,19 @@ void readPerson() {
 	getInput("State: ", p.state, sizeof(p.state));
 	getInput("Zip code: ", p.zip, sizeof(p.zip));
 	getInput("Phone: ", p.phone, sizeof(p.phone));
+}
+
+void searchByKey(int key){
+	while(retrieveDataObject()) {
+		if(atoi(p.key) >= key){
+			break;
+		}
+	}
+	fseek(file, - personSize, SEEK_CUR);
+}
+
+void createPersonSpace() {
+	
 }
 
 void writePersonToFile() {
@@ -106,6 +120,23 @@ int retrieveDataObject(){
 		fread(p.state, sizeof(char), sizeof(p.state)/sizeof(char) - 1, file);
 		fread(p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, file);
 		fread(p.phone, sizeof(char), sizeof(p.phone)/sizeof(char)- 1, file);
+	}
+
+	return returnValue;
+}
+
+int retrieveDataObjectIndex(){
+	int returnValue = 0;
+
+	if(fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, secondaryIndexFile) == 21){
+		returnValue = 1;
+		fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, secondaryIndexFile) == 3
+		fread(p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, secondaryIndexFile);
+		fread(p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, secondaryIndexFile);
+		fread(p.city, sizeof(char), sizeof(p.city)/sizeof(char) - 1, secondaryIndexFile);
+		fread(p.state, sizeof(char), sizeof(p.state)/sizeof(char) - 1, file);
+		fread(p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, secondaryIndexFile);
+		fread(p.phone, sizeof(char), sizeof(p.phone)/sizeof(char)- 1, secondaryIndexFile);
 	}
 
 	return returnValue;
