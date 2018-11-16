@@ -68,7 +68,7 @@ void writeData(){
 	} while(option=='y');
 }
 
-char displayData(){
+char displayDataObject(){
 	char next = '\0';
 
 	printf("Key: %s\n", p.key);
@@ -84,9 +84,11 @@ char displayData(){
 
 	return next;
 }
-void retrieveData(){
-	char next = '\n';
-	while(fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file) == 3 && next == '\n'){
+
+int retrieveDataObject(){
+	int freadReturnValue = 0;
+
+	if(fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file) == 3){
 		fread(p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, file);
 		fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, file);
 		fread(p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, file);
@@ -94,14 +96,21 @@ void retrieveData(){
 		fread(p.state, sizeof(char), sizeof(p.state)/sizeof(char) - 1, file);
 		fread(p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, file);
 		fread(p.phone, sizeof(char), sizeof(p.phone)/sizeof(char)- 1, file);
-		next = displayData();
+	}
+	return freadReturnValue;
+}
+
+void displayData(){
+	char next = '\n';
+	while(retrieveDataObject() == 3 && next == '\n'){
+		next = displayDataObject();
 	}
 	if(feof(file)){
 		printf("\nEnd of file\n");
 	}
 }
 
-void retrieveDataObject(int dataObjectNumber){
+void displayDataObjectByNumber(int dataObjectNumber){
 	int dataObjectSize = 0;
 	int dataObjectPosition = 0;
 
@@ -114,22 +123,16 @@ void retrieveDataObject(int dataObjectNumber){
 	dataObjectSize += sizeof(p.zip)/sizeof(char) - 1;
 	dataObjectSize += sizeof(p.phone)/sizeof(char)- 1;
 
-	dataObjectPosition = dataObjectSize * (dataObjectNumber - 1);
+	dataObjectPosition = dataObjectSize * (dataObjectNumber);
 
 	fseek(file, dataObjectPosition, SEEK_SET);
-
-	if(fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file) == 3){
-		fread(p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, file);
-		fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, file);
-		fread(p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, file);
-		fread(p.city, sizeof(char), sizeof(p.city)/sizeof(char) - 1, file);
-		fread(p.state, sizeof(char), sizeof(p.state)/sizeof(char) - 1, file);
-		fread(p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, file);
-		fread(p.phone, sizeof(char), sizeof(p.phone)/sizeof(char)- 1, file);
-	}
-	displayData();
+	retrieveDataObject();
+	displayDataObject();
 }
 
+void displayDataObjectByKey(int dataObjectKey){
+
+}
 int menu(){
 	//Menu
 	int option;
@@ -147,6 +150,7 @@ int main() {
 
 	int menuItem;
 	int dataObjectNumber;
+	int dataObjectKey;
 
 	do {
 		menuItem = menu();
@@ -163,7 +167,7 @@ int main() {
 			case 2 :
 				//Recuperar dados
 				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "r");
-				retrieveData();
+				displayData();
 				fclose(file);
 				break;
 
@@ -173,7 +177,16 @@ int main() {
 				printf("Numero do registro: ");
 				scanf("%d", &dataObjectNumber);
 				getchar();
-				retrieveDataObject(dataObjectNumber);
+				displayDataObjectByNumber(dataObjectNumber);
+				fclose(file);
+				break;
+			case 4 :
+				//Recuperar registro especifico
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "r");
+				printf("Numero do registro: ");
+				scanf("%d", &dataObjectKey);
+				getchar();
+				displayDataObjectByKey(dataObjectKey);
 				fclose(file);
 				break;
 		}
