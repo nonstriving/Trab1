@@ -19,7 +19,7 @@ person p;
 FILE *file;
 
 void fillString(char *variable, int size){
-	for(int i = 0; i < size - 2; i++){
+	for(int i = 0; i < size - 3; i++){
 		if(variable[i] == '\0'){
 			variable[i] = ' ';
 			variable[i + 1] = '\0';
@@ -81,14 +81,14 @@ void displayData(){
 }
 void retrieveData(){
 
-	while(fread(p.key, strlen(p.key) - 1, 1, file) == 1){
-		fread(p.lastname, strlen(p.lastname) - 1, 1, file);
-		fread(p.firstname, strlen(p.firstname) - 1, 1, file);
-		fread(p.address, strlen(p.address) - 1, 1, file);
-		fread(p.city, strlen(p.city) - 1, 1, file);
-		fread(p.state, strlen(p.state) - 1, 1, file);
-		fread(p.zip, strlen(p.zip) - 1, 1, file);
-		fread(p.phone, strlen(p.phone) - 1, 1, file);
+	while(fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file) == 3){
+		fread(p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, file);
+		fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, file);
+		fread(p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, file);
+		fread(p.city, sizeof(char), sizeof(p.city)/sizeof(char) - 1, file);
+		fread(p.state, sizeof(char), sizeof(p.state)/sizeof(char) - 1, file);
+		fread(p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, file);
+		fread(p.phone, sizeof(char), sizeof(p.phone)/sizeof(char)- 1, file);
 		displayData();
 	}
 	if(feof(file)){
