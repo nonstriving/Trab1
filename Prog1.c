@@ -99,9 +99,11 @@ int retrieveDataObject(){
 	return returnValue;
 }
 
-void searchByKey(int key){
+void searchByKey(int key) {
 	while(retrieveDataObject()) {
+		printf("entered searchByKey while \n");
 		if(atoi(p.key) >= key){
+			//fseek(file, - personSize, SEEK_CUR);
 			break;
 		}
 	}
@@ -110,14 +112,12 @@ void searchByKey(int key){
 
 void writePersonSortedByKey() {
 	searchByKey(atoi(p.key));
-	while(!feof(file)){
+	int retrieveDataObjectReturnValue;
+	do {
 		p2 = p;
-		if(retrieveDataObject()){
-			writePersonToFile();
-			searchByKey(atoi(p.key));
-
-		}
-	}
+		retrieveDataObjectReturnValue = retrieveDataObject();
+		writePersonToFile();
+	} while(retrieveDataObjectReturnValue);
 }
 
 void writeData(){
