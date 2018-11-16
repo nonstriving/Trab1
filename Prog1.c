@@ -58,10 +58,6 @@ void searchByKey(int key){
 	fseek(file, - personSize, SEEK_CUR);
 }
 
-void createPersonSpace() {
-	
-}
-
 void writePersonToFile() {
 	//fseek(file, 0, SEEK_SET);
 	fwrite(&p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file);
@@ -72,6 +68,17 @@ void writePersonToFile() {
 	fwrite(&p.state, sizeof(char), sizeof(p.state)/sizeof(char) - 1, file);
 	fwrite(&p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, file);
 	fwrite(&p.phone, sizeof(char), sizeof(p.phone)/sizeof(char) - 1, file);
+}
+
+void writePersonSortedByKey() {
+	searchByKey(p.key);
+	while(!feof(file)){
+		p2 = p;
+		if(retrieveDataObject()){
+			writePersonToFile();
+		}
+
+	}
 }
 
 void writePersonToIndexFile(){
