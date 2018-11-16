@@ -220,7 +220,7 @@ int main() {
 		switch(menuItem) {
 			case 1 :
 				// Ler registros Pessoa
-				file = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "wb");
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "wb+");
 				secondaryIndexFile = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "wb");
 				writeData();
 				fclose(file);
