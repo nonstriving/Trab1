@@ -68,7 +68,9 @@ void writeData(){
 	} while(option=='y');
 }
 
-void displayData(){
+char displayData(){
+	char next = '\0';
+
 	printf("Key: %s\n", p.key);
 	printf("Last name: %s\n", p.lastname);
 	printf("First name: %s\n", p.firstname);
@@ -77,11 +79,14 @@ void displayData(){
 	printf("State: %s\n", p.state);
 	printf("Zip code: %s\n", p.zip);
 	printf("Phone: %s\n", p.phone);
-	printf("\n");
+	printf("Pressione enter para visualizar o proximo registro.");
+	scanf("%c", &next);
+
+	return next;
 }
 void retrieveData(){
-
-	while(fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file) == 3){
+	char next = '\n';
+	while(fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file) == 3 && next == '\n'){
 		fread(p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, file);
 		fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, file);
 		fread(p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, file);
@@ -89,7 +94,7 @@ void retrieveData(){
 		fread(p.state, sizeof(char), sizeof(p.state)/sizeof(char) - 1, file);
 		fread(p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, file);
 		fread(p.phone, sizeof(char), sizeof(p.phone)/sizeof(char)- 1, file);
-		displayData();
+		next = displayData();
 	}
 	if(feof(file)){
 		printf("\nEnd of file\n");
