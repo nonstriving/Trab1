@@ -108,9 +108,8 @@ void searchByKey(int key) {
 			fseek(file, - personSize, SEEK_CUR);
 			return;
 		}
-		fseek(file, 0, SEEK_END);
 	}
-	//fseek(file, - personSize, SEEK_CUR);
+	fseek(file, 0, SEEK_END);
 }
 
 void writePersonSortedByKey() {
