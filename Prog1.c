@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 // Programa 1
 // campos de tamanho fixo em bytes + registros de tamanho fixo em bytes
 typedef struct {
-	char key[3];
-	char lastname[21];
-	char firstname[21];
-	char address[21];
-	char city[11];
-	char state[11];
-	char zip[11];
-	char phone[15];
+	char key[4];
+	char lastname[22];
+	char firstname[22];
+	char address[22];
+	char city[12];
+	char state[12];
+	char zip[12];
+	char phone[16];
 } person;
 
 person p;
@@ -47,16 +48,15 @@ void writePersonToFile(FILE *file) {
 
 int main() {
 
-	FILE *data = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rw");
+	FILE *data = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w+");
 
 	// Ler registros Pessoa
-	char option;
+	char option = '\0';
 
 	do {
 		readPerson();
 		writePersonToFile(data);
-		printf("Nova pessoa? (y/n)\n");
-		scanf("%c", &option);
+		getText("Nova pessoa? (y/n)", &option, 3);
 	} while(option=='y');
 
 	return 0;
