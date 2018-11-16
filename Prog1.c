@@ -49,15 +49,6 @@ void readPerson() {
 	getInput("Phone: ", p.phone, sizeof(p.phone));
 }
 
-void searchByKey(int key){
-	while(retrieveDataObject()) {
-		if(atoi(p.key) >= key){
-			break;
-		}
-	}
-	fseek(file, - personSize, SEEK_CUR);
-}
-
 void writePersonToFile() {
 	//fseek(file, 0, SEEK_SET);
 	fwrite(&p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file);
@@ -70,33 +61,8 @@ void writePersonToFile() {
 	fwrite(&p.phone, sizeof(char), sizeof(p.phone)/sizeof(char) - 1, file);
 }
 
-void writePersonSortedByKey() {
-	searchByKey(p.key);
-	while(!feof(file)){
-		p2 = p;
-		if(retrieveDataObject()){
-			writePersonToFile();
-			searchByKey(p.key);
-
-		}
-	}
-}
-
-//void writePersonToIndexFile(){
+void writePersonToIndexFile() {
 	
-//}
-
-void writeData(){
-	char option = '\0';
-
-	do {
-		readPerson();
-		writePersonSortedByKey();
-		writePersonToIndexFile();
-		printf("Nova pessoa? (y/n) ");
-		scanf("%c", &option);
-		getchar();
-	} while(option=='y');
 }
 
 char displayDataObject(){
@@ -133,12 +99,46 @@ int retrieveDataObject(){
 	return returnValue;
 }
 
+void searchByKey(int key){
+	while(retrieveDataObject()) {
+		if(atoi(p.key) >= key){
+			break;
+		}
+	}
+	fseek(file, - personSize, SEEK_CUR);
+}
+
+void writePersonSortedByKey() {
+	searchByKey(atoi(p.key));
+	while(!feof(file)){
+		p2 = p;
+		if(retrieveDataObject()){
+			writePersonToFile();
+			searchByKey(atoi(p.key));
+
+		}
+	}
+}
+
+void writeData(){
+	char option = '\0';
+
+	do {
+		readPerson();
+		writePersonSortedByKey();
+		writePersonToIndexFile();
+		printf("Nova pessoa? (y/n) ");
+		scanf("%c", &option);
+		getchar();
+	} while(option=='y');
+}
+
 int retrieveDataObjectIndex(){
 	int returnValue = 0;
 
 	if(fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, secondaryIndexFile) == 21){
 		returnValue = 1;
-		fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, secondaryIndexFile) == 3;
+		fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, secondaryIndexFile);
 		fread(p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, secondaryIndexFile);
 		fread(p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, secondaryIndexFile);
 		fread(p.city, sizeof(char), sizeof(p.city)/sizeof(char) - 1, secondaryIndexFile);
