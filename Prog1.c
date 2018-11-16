@@ -32,7 +32,7 @@ void getInput(char *message, char *variable, int size){
     printf("\n %s: ", message);
     fgets(variable, sizeof(char) * size, stdin);
     sscanf(variable, "%[^\n]", variable);
-    fillString();
+    fillString(variable, size);
 }
 
 // Leitura de um registro Pessoa
