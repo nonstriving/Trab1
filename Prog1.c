@@ -15,8 +15,10 @@ typedef struct {
 } person;
 
 person p;
+int personSize;
 
 FILE *file;
+FILE *secondaryIndexFile;
 
 void fillString(char *variable, int size){
 	for(int i = 0; i < size - 3; i++){
@@ -58,13 +60,20 @@ void writePersonToFile() {
 	fwrite(&p.phone, sizeof(char), sizeof(p.phone)/sizeof(char) - 1, file);
 }
 
+void writePersonToIndexFile(){
+	
+}
+
 void writeData(){
 	char option = '\0';
 
 	do {
 		readPerson();
 		writePersonToFile();
-		getInput("Nova pessoa? (y/n) ", &option, 3);
+		writePersonToIndexFile();
+		printf("Nova pessoa? (y/n) ");
+		scanf("%c", &option);
+		getchar();
 	} while(option=='y');
 }
 
@@ -104,7 +113,7 @@ int retrieveDataObject(){
 
 void displayData(){
 	char next = '\n';
-	while(retrieveDataObject() == 1 && next == '\n'){
+	while(retrieveDataObject() && next == '\n'){
 		next = displayDataObject();
 	}
 	if(feof(file)){
@@ -113,19 +122,9 @@ void displayData(){
 }
 
 void displayDataObjectByNumber(int dataObjectNumber){
-	int dataObjectSize = 0;
 	int dataObjectPosition = 0;
 
-	dataObjectSize += sizeof(p.key)/sizeof(char) - 1;
-	dataObjectSize += sizeof(p.lastname)/sizeof(char) - 1;
-	dataObjectSize += sizeof(p.firstname)/sizeof(char) - 1;
-	dataObjectSize += sizeof(p.address)/sizeof(char) - 1;
-	dataObjectSize += sizeof(p.city)/sizeof(char) - 1;
-	dataObjectSize += sizeof(p.state)/sizeof(char) - 1;
-	dataObjectSize += sizeof(p.zip)/sizeof(char) - 1;
-	dataObjectSize += sizeof(p.phone)/sizeof(char)- 1;
-
-	dataObjectPosition = dataObjectSize * (dataObjectNumber);
+	dataObjectPosition = personSize * (dataObjectNumber);
 
 	fseek(file, dataObjectPosition, SEEK_SET);
 	retrieveDataObject();
@@ -134,9 +133,10 @@ void displayDataObjectByNumber(int dataObjectNumber){
 
 void displayDataObjectByKey(int dataObjectKey){
 	while(retrieveDataObject()) {
-		if(atoi(p.key) == dataObjectKey)
+		if(atoi(p.key) == dataObjectKey){
 			displayDataObject();
 			break;
+		}
 	}
 }
 
@@ -146,11 +146,24 @@ int menu(){
 	printf("Opcoes:\n");
 	printf("(1) Entrar registros\n");
 	printf("(2) Recuperar dados\n");
-	printf("(3) Recuperar registro especifico\n");
+	printf("(3) Recuperar registro especifico por numero\n");
+	printf("(4) Recuperar registro especifico por key\n");
 	printf("(0) Sair\n");
 	scanf("%d", &option);
 	getchar();
 	return option;
+}
+
+void calculatePersonSize() {
+	personSize = 0;
+	personSize += sizeof(p.key)/sizeof(char) - 1;
+	personSize += sizeof(p.lastname)/sizeof(char) - 1;
+	personSize += sizeof(p.firstname)/sizeof(char) - 1;
+	personSize += sizeof(p.address)/sizeof(char) - 1;
+	personSize += sizeof(p.city)/sizeof(char) - 1;
+	personSize += sizeof(p.state)/sizeof(char) - 1;
+	personSize += sizeof(p.zip)/sizeof(char) - 1;
+	personSize += sizeof(p.phone)/sizeof(char)- 1;
 }
 
 int main() {
@@ -159,26 +172,29 @@ int main() {
 	int dataObjectNumber;
 	int dataObjectKey;
 
+	calculatePersonSize();
+
 	do {
 		menuItem = menu();
 		switch(menuItem) {
 			case 1 :
 				// Ler registros Pessoa
-				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w");
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "wb");
+				secondaryIndexFile = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "wb");
 				writeData();
 				fclose(file);
 				break;
 
 			case 2 :
 				//Recuperar dados
-				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "r");
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "rb");
 				displayData();
 				fclose(file);
 				break;
 
 			case 3 :
 				//Recuperar registro especifico
-				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "r");
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "rb");
 				printf("Numero do registro: ");
 				scanf("%d", &dataObjectNumber);
 				getchar();
@@ -187,8 +203,8 @@ int main() {
 				break;
 			case 4 :
 				//Recuperar registro especifico
-				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "r");
-				printf("Numero do registro: ");
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rb");
+				printf("Key do registro: ");
 				scanf("%d", &dataObjectKey);
 				getchar();
 				displayDataObjectByKey(dataObjectKey);
