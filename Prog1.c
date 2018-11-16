@@ -103,11 +103,11 @@ void searchByKey(int key) {
 	while(retrieveDataObject()) {
 		printf("entered searchByKey while \n");
 		if(atoi(p.key) >= key){
-			//fseek(file, - personSize, SEEK_CUR);
+			fseek(file, - personSize, SEEK_CUR);
 			break;
 		}
 	}
-	fseek(file, - personSize, SEEK_CUR);
+	//fseek(file, - personSize, SEEK_CUR);
 }
 
 void writePersonSortedByKey() {
