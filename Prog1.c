@@ -78,12 +78,13 @@ void writePersonSortedByKey() {
 			writePersonToFile();
 			searchByKey(p.key);
 
+		}
 	}
 }
 
-void writePersonToIndexFile(){
+//void writePersonToIndexFile(){
 	
-}
+//}
 
 void writeData(){
 	char option = '\0';
@@ -137,7 +138,7 @@ int retrieveDataObjectIndex(){
 
 	if(fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, secondaryIndexFile) == 21){
 		returnValue = 1;
-		fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, secondaryIndexFile) == 3
+		fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, secondaryIndexFile) == 3;
 		fread(p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, secondaryIndexFile);
 		fread(p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, secondaryIndexFile);
 		fread(p.city, sizeof(char), sizeof(p.city)/sizeof(char) - 1, secondaryIndexFile);
