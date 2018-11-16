@@ -4,7 +4,7 @@
 // Programa 1
 // campos de tamanho fixo em bytes + registros de tamanho fixo em bytes
 typedef struct {
-	char key[4];
+	char key[4]; // Ultimo caracter armazena '\n'
 	char lastname[22];
 	char firstname[22];
 	char address[22];
@@ -19,8 +19,7 @@ person p;
 FILE *file;
 
 void fillString(char *variable, int size){
-	int i;
-	for(i = 0; i < size - 2; i++){
+	for(int i = 0; i < size - 2; i++){
 		if(variable[i] == '\0'){
 			variable[i] = ' ';
 			variable[i + 1] = '\0';
@@ -69,17 +68,43 @@ void writeData(){
 	} while(option=='y');
 }
 
+void displayData(){
+	printf("Key: %s\n", p.key);
+	printf("Last name: %s\n", p.lastname);
+	printf("First name: %s\n", p.firstname);
+	printf("Address: %s\n", p.address);
+	printf("City: %s\n", p.city);
+	printf("State: %s\n", p.state);
+	printf("Zip code: %s\n", p.zip);
+	printf("Phone: %s\n", p.phone);
+	printf("\n");
+}
 void retrieveData(){
 
+	while(fread(p.key, strlen(p.key) - 1, 1, file) == 1){
+		fread(p.lastname, strlen(p.lastname) - 1, 1, file);
+		fread(p.firstname, strlen(p.firstname) - 1, 1, file);
+		fread(p.address, strlen(p.address) - 1, 1, file);
+		fread(p.city, strlen(p.city) - 1, 1, file);
+		fread(p.state, strlen(p.state) - 1, 1, file);
+		fread(p.zip, strlen(p.zip) - 1, 1, file);
+		fread(p.phone, strlen(p.phone) - 1, 1, file);
+		displayData();
+	}
+	if(feof(file)){
+		printf("\nEnd of file\n");
+	}
 }
 
 int main() {
 
-	file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w");
-
 	// Ler registros Pessoa
+	file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w");
 	writeData();
+	fclose(file);
+
 	//Recuperar dados
+	file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "r");
 	retrieveData();
 	fclose(file);
 
