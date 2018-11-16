@@ -16,6 +16,8 @@ typedef struct {
 
 person p;
 
+FILE *file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "a");
+
 void getInput(char *message, char *variable, int size){
     printf("\n %s: ", message);
     fgets(variable, sizeof(char) * size, stdin);
@@ -34,7 +36,7 @@ void readPerson() {
 	getInput("Phone", p.phone, sizeof(p.phone));
 }
 
-void writePersonToFile(FILE *file) {
+void writePersonToFile() {
 	//fseek(file, 0, SEEK_SET);
 	fwrite(&p.key, sizeof(char), sizeof(p.key)/sizeof(char), file);
 	fwrite(&p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char), file);
@@ -48,18 +50,16 @@ void writePersonToFile(FILE *file) {
 
 int main() {
 
-	FILE *data = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w");
-
 	// Ler registros Pessoa
 	char option = '\0';
 
 	do {
 		readPerson();
-		writePersonToFile(data);
+		writePersonToFile();
 		getInput("Nova pessoa? (y/n)", &option, 3);
 	} while(option=='y');
 
-	fclose(data);
+	//fclose(data);
 
 	return 0;
 }
