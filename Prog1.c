@@ -24,7 +24,6 @@ void getInput(char *message, char *variable, int size){
 
 // Leitura de um registro Pessoa
 void readPerson() {
-
 	getInput("Key", p.key, sizeof(p.key)); 
 	getInput("Last name", p.lastname, sizeof(p.lastname));
 	getInput("First name", p.firstname, sizeof(p.firstname));
@@ -36,6 +35,7 @@ void readPerson() {
 }
 
 void writePersonToFile(FILE *file) {
+	//fseek(file, 0, SEEK_SET);
 	fwrite(&p.key, sizeof(char), sizeof(p.key)/sizeof(char), file);
 	fwrite(&p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char), file);
 	fwrite(&p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char), file);
@@ -48,7 +48,7 @@ void writePersonToFile(FILE *file) {
 
 int main() {
 
-	FILE *data = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w+");
+	FILE *data = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w");
 
 	// Ler registros Pessoa
 	char option = '\0';
@@ -58,6 +58,8 @@ int main() {
 		writePersonToFile(data);
 		getInput("Nova pessoa? (y/n)", &option, 3);
 	} while(option=='y');
+
+	fclose(data);
 
 	return 0;
 }
