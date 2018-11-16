@@ -100,12 +100,15 @@ int retrieveDataObject(){
 }
 
 void searchByKey(int key) {
+	fseek(file, 0, SEEK_SET);
 	while(retrieveDataObject()) {
 		printf("entered searchByKey while \n");
 		if(atoi(p.key) >= key){
+			printf("entered if\n");
 			fseek(file, - personSize, SEEK_CUR);
-			break;
+			return;
 		}
+		fseek(file, 0, SEEK_END);
 	}
 	//fseek(file, - personSize, SEEK_CUR);
 }
