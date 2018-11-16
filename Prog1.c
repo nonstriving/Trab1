@@ -86,9 +86,10 @@ char displayDataObject(){
 }
 
 int retrieveDataObject(){
-	int freadReturnValue = 0;
+	int returnValue = 0;
 
 	if(fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file) == 3){
+		returnValue = 1;
 		fread(p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, file);
 		fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, file);
 		fread(p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, file);
@@ -97,12 +98,13 @@ int retrieveDataObject(){
 		fread(p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, file);
 		fread(p.phone, sizeof(char), sizeof(p.phone)/sizeof(char)- 1, file);
 	}
-	return freadReturnValue;
+
+	return returnValue;
 }
 
 void displayData(){
 	char next = '\n';
-	while(retrieveDataObject() == 3 && next == '\n'){
+	while(retrieveDataObject() == 1 && next == '\n'){
 		next = displayDataObject();
 	}
 	if(feof(file)){
@@ -131,8 +133,13 @@ void displayDataObjectByNumber(int dataObjectNumber){
 }
 
 void displayDataObjectByKey(int dataObjectKey){
-
+	while(retrieveDataObject()) {
+		if(atoi(p.key) == dataObjectKey)
+			displayDataObject();
+			break;
+	}
 }
+
 int menu(){
 	//Menu
 	int option;
@@ -154,14 +161,12 @@ int main() {
 
 	do {
 		menuItem = menu();
-		printf("TEST: %d\n", menuItem);
 		switch(menuItem) {
 			case 1 :
 				// Ler registros Pessoa
 				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w");
 				writeData();
 				fclose(file);
-				printf("TEST: %d\n", menuItem);
 				break;
 
 			case 2 :
