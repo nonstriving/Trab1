@@ -18,10 +18,21 @@ person p;
 
 FILE *file;
 
+void fillString(char *variable, int size){
+	int i;
+	for(i = 0; i < size - 2; i++){
+		if(variable[i] == '\0'){
+			variable[i] = ' ';
+			variable[i + 1] = '\0';
+		}
+	}
+}
+
 void getInput(char *message, char *variable, int size){
     printf("\n %s: ", message);
     fgets(variable, sizeof(char) * size, stdin);
     sscanf(variable, "%[^\n]", variable);
+    fillString();
 }
 
 // Leitura de um registro Pessoa
@@ -58,12 +69,18 @@ void writeData(){
 	} while(option=='y');
 }
 
+void retrieveData(){
+
+}
+
 int main() {
 
-	file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "a");
+	file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w");
 
 	// Ler registros Pessoa
 	writeData();
+	//Recuperar dados
+	retrieveData();
 	fclose(file);
 
 	return 0;
