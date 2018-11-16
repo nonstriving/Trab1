@@ -16,7 +16,7 @@ typedef struct {
 
 person p;
 
-FILE *file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "a");
+FILE *file;
 
 void getInput(char *message, char *variable, int size){
     printf("\n %s: ", message);
@@ -48,9 +48,7 @@ void writePersonToFile() {
 	fwrite(&p.phone, sizeof(char), sizeof(p.phone)/sizeof(char), file);
 }
 
-int main() {
-
-	// Ler registros Pessoa
+void writeData(){
 	char option = '\0';
 
 	do {
@@ -58,8 +56,15 @@ int main() {
 		writePersonToFile();
 		getInput("Nova pessoa? (y/n)", &option, 3);
 	} while(option=='y');
+}
 
-	//fclose(data);
+int main() {
+
+	file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "a");
+
+	// Ler registros Pessoa
+	writeData();
+	fclose(file);
 
 	return 0;
 }
