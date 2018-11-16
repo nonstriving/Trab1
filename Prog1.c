@@ -28,7 +28,7 @@ void fillString(char *variable, int size){
 }
 
 void getInput(char *message, char *variable, int size){
-    printf("\n %s: ", message);
+    printf("\n%s", message);
     fgets(variable, sizeof(char) * size, stdin);
     sscanf(variable, "%[^\n]", variable);
     fillString(variable, size);
@@ -36,14 +36,14 @@ void getInput(char *message, char *variable, int size){
 
 // Leitura de um registro Pessoa
 void readPerson() {
-	getInput("Key", p.key, sizeof(p.key)); 
-	getInput("Last name", p.lastname, sizeof(p.lastname));
-	getInput("First name", p.firstname, sizeof(p.firstname));
-	getInput("Address", p.address, sizeof(p.address));
-	getInput("City", p.city, sizeof(p.city));
-	getInput("State", p.state, sizeof(p.state));
-	getInput("Zip code", p.zip, sizeof(p.zip));
-	getInput("Phone", p.phone, sizeof(p.phone));
+	getInput("Key: ", p.key, sizeof(p.key)); 
+	getInput("Last name: ", p.lastname, sizeof(p.lastname));
+	getInput("First name: ", p.firstname, sizeof(p.firstname));
+	getInput("Address: ", p.address, sizeof(p.address));
+	getInput("City: ", p.city, sizeof(p.city));
+	getInput("State: ", p.state, sizeof(p.state));
+	getInput("Zip code: ", p.zip, sizeof(p.zip));
+	getInput("Phone: ", p.phone, sizeof(p.phone));
 }
 
 void writePersonToFile() {
@@ -64,7 +64,7 @@ void writeData(){
 	do {
 		readPerson();
 		writePersonToFile();
-		getInput("Nova pessoa? (y/n)", &option, 3);
+		getInput("Nova pessoa? (y/n) ", &option, 3);
 	} while(option=='y');
 }
 
@@ -101,17 +101,50 @@ void retrieveData(){
 	}
 }
 
+void retrieveDataObject(){
+
+}
+
+int menu(){
+	//Menu
+	char *message;
+	char option[3] = "\0";
+	int optionValue;
+	message = "Opcoes:\n(1) Entrar registros\n(2) Recuperar dados\n(3) Recuperar registro especifico\n(0) Sair\n";
+	getInput(message, option,3);
+	optionValue = atoi(option);
+	return optionValue;
+}
+
 int main() {
 
-	// Ler registros Pessoa
-	file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w");
-	writeData();
-	fclose(file);
+	int option;
+	do {
+		option = menu();
+		printf("TEST: %d\n", option);
+		switch(option) {
+			case 1 :
+				// Ler registros Pessoa
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w");
+				writeData();
+				fclose(file);
+				break;
 
-	//Recuperar dados
-	file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "r");
-	retrieveData();
-	fclose(file);
+			case 2 :
+				//Recuperar dados
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "r");
+				retrieveData();
+				fclose(file);
+				break;
+
+			case 3 :
+				//Recuperar registro especifico
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "r");
+				retrieveDataObject();
+				fclose(file);
+				break;
+		}
+	} while(option != 0);
 
 	return 0;
 }
