@@ -101,33 +101,63 @@ void retrieveData(){
 	}
 }
 
-void retrieveDataObject(){
+void retrieveDataObject(int dataObjectNumber){
+	int dataObjectSize = 0;
+	int dataObjectPosition = 0;
 
+	dataObjectSize += sizeof(p.key)/sizeof(char) - 1;
+	dataObjectSize += sizeof(p.lastname)/sizeof(char) - 1;
+	dataObjectSize += sizeof(p.firstname)/sizeof(char) - 1;
+	dataObjectSize += sizeof(p.address)/sizeof(char) - 1;
+	dataObjectSize += sizeof(p.city)/sizeof(char) - 1;
+	dataObjectSize += sizeof(p.state)/sizeof(char) - 1;
+	dataObjectSize += sizeof(p.zip)/sizeof(char) - 1;
+	dataObjectSize += sizeof(p.phone)/sizeof(char)- 1;
+
+	dataObjectPosition = dataObjectSize * (dataObjectNumber - 1);
+
+	fseek(file, dataObjectPosition, SEEK_SET);
+
+	if(fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file) == 3){
+		fread(p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, file);
+		fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, file);
+		fread(p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, file);
+		fread(p.city, sizeof(char), sizeof(p.city)/sizeof(char) - 1, file);
+		fread(p.state, sizeof(char), sizeof(p.state)/sizeof(char) - 1, file);
+		fread(p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, file);
+		fread(p.phone, sizeof(char), sizeof(p.phone)/sizeof(char)- 1, file);
+	}
+	displayData();
 }
 
 int menu(){
 	//Menu
-	char *message;
-	char option[3] = "\0";
-	int optionValue;
-	message = "Opcoes:\n(1) Entrar registros\n(2) Recuperar dados\n(3) Recuperar registro especifico\n(0) Sair\n";
-	getInput(message, option,3);
-	optionValue = atoi(option);
-	return optionValue;
+	int option;
+	printf("Opcoes:\n");
+	printf("(1) Entrar registros\n");
+	printf("(2) Recuperar dados\n");
+	printf("(3) Recuperar registro especifico\n");
+	printf("(0) Sair\n");
+	scanf("%d", &option);
+	getchar();
+	return option;
 }
 
 int main() {
 
-	int option;
+	int menuItem;
+	int dataObjectNumber;
+
 	do {
-		option = menu();
-		printf("TEST: %d\n", option);
-		switch(option) {
+		menuItem = menu();
+		printf("TEST: %d\n", menuItem);
+		switch(menuItem) {
 			case 1 :
 				// Ler registros Pessoa
 				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "w");
 				writeData();
 				fclose(file);
+				printf("TEST: %d\n", menuItem);
 				break;
 
 			case 2 :
@@ -140,11 +170,14 @@ int main() {
 			case 3 :
 				//Recuperar registro especifico
 				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "r");
-				retrieveDataObject();
+				printf("Numero do registro: ");
+				scanf("%d", &dataObjectNumber);
+				getchar();
+				retrieveDataObject(dataObjectNumber);
 				fclose(file);
 				break;
 		}
-	} while(option != 0);
+	} while(menuItem != 0);
 
 	return 0;
 }
