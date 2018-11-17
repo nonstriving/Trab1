@@ -120,6 +120,9 @@ void writePersonSortedByKey() {
 	int retrieveDataObjectReturnValue;
 	do {
 		retrieveDataObjectReturnValue = retrieveDataObject();
+		if(retrieveDataObjectReturnValue) {
+			fseek(file, - personSize, SEEK_CUR);
+		}
 		// Trocar p com p2
 		pcopy = p;
 		p = p2;
