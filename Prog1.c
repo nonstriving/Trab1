@@ -16,6 +16,7 @@ typedef struct {
 
 person p;
 person p2;
+person pcopy;
 int personSize;
 
 FILE *file;
@@ -113,10 +114,11 @@ void searchByKey(int key) {
 }
 
 void writePersonSortedByKey() {
+	p2 = p;
+	printf("p2 key %s\n", p2.key);
 	searchByKey(atoi(p.key));
 	int retrieveDataObjectReturnValue;
 	do {
-		p2 = p;
 		retrieveDataObjectReturnValue = retrieveDataObject();
 		writePersonToFile();
 	} while(retrieveDataObjectReturnValue);
