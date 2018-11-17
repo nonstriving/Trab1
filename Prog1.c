@@ -214,9 +214,14 @@ void displayDataObjectByKey(int dataObjectKey){
 }
 
 void displayDataObjectByName(char *dataObjectName){
-	while(retrieveDataObject()) {
+	while(retrieveDataObjectIndex()) {
 		if(strcmp(dataObjectName, p.firstname) == 0){
-			displayDataObject();
+			while(retrieveDataObject){
+				if(atoi(p.key) == dataObjectKey){
+				displayDataObject();
+				break;
+				}
+			}
 			break;
 		}
 	}
