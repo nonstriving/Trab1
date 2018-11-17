@@ -15,8 +15,6 @@ typedef struct {
 } person;
 
 person p;
-person p2;
-person pcopy;
 int personSize;
 
 FILE *file;
@@ -63,7 +61,8 @@ void writePersonToFile() {
 }
 
 void writePersonToIndexFile() {
-	
+	fwrite(&p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, file);
+	fwrite(&p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file);
 }
 
 char displayDataObject(){
@@ -114,6 +113,8 @@ void searchByKey(int key) {
 }
 
 void writePersonSortedByKey() {
+	person p2;
+	person pcopy;
 	p2 = p;
 	printf("p2 key %s\n", p2.key);
 	searchByKey(atoi(p.key));
@@ -128,6 +129,26 @@ void writePersonSortedByKey() {
 		p = p2;
 		p2 = pcopy;
 		writePersonToFile();
+	} while(retrieveDataObjectReturnValue);
+}
+
+void writePersonSortedByName() {
+	person p2;
+	person pcopy;
+	p2 = p;
+	printf("p2 key %s\n", p2.key);
+	searchByName(atoi(p.key));
+	int retrieveDataObjectReturnValue;
+	do {
+		retrieveDataObjectReturnValue = retrieveDataObject();
+		if(retrieveDataObjectReturnValue) {
+			fseek(file, - personSize, SEEK_CUR);
+		}
+		// Trocar p com p2
+		pcopy = p;
+		p = p2;
+		p2 = pcopy;
+		writePersonToIndexFile();
 	} while(retrieveDataObjectReturnValue);
 }
 
