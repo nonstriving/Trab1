@@ -140,26 +140,6 @@ void writePersonSortedByKey() {
 	} while(retrieveDataObjectReturnValue);
 }
 
-void writePersonSortedByName() {
-	person p2;
-	person pcopy;
-	p2 = p;
-	printf("p2 key %s\n", p2.firstname);
-	searchByName(p.firstname);
-	int retrieveDataObjectReturnValue;
-	do {
-		retrieveDataObjectReturnValue = retrieveDataObjectIndex();
-		if(retrieveDataObjectReturnValue) {
-			fseek(file, - personSize, SEEK_CUR);
-		}
-		// Trocar p com p2
-		pcopy = p;
-		p = p2;
-		p2 = pcopy;
-		writePersonToIndexFile();
-	} while(retrieveDataObjectReturnValue);
-}
-
 void writeData(){
 	char option = '\0';
 
@@ -182,6 +162,26 @@ int retrieveDataObjectIndex(){
 	}
 
 	return returnValue;
+}
+
+void writePersonSortedByName() {
+	person p2;
+	person pcopy;
+	p2 = p;
+	printf("p2 key %s\n", p2.firstname);
+	searchByName(p.firstname);
+	int retrieveDataObjectReturnValue;
+	do {
+		retrieveDataObjectReturnValue = retrieveDataObjectIndex();
+		if(retrieveDataObjectReturnValue) {
+			fseek(file, - personSize, SEEK_CUR);
+		}
+		// Trocar p com p2
+		pcopy = p;
+		p = p2;
+		p2 = pcopy;
+		writePersonToIndexFile();
+	} while(retrieveDataObjectReturnValue);
 }
 
 void displayData(){
@@ -219,7 +219,7 @@ void displayDataObjectByName(char *dataObjectName){
 		if(strcmp(dataObjectName, p.firstname) == 0){
 			key = atoi(p.key);
 			while(retrieveDataObject()){
-				if(key == dataObjecKey){
+				if(atoi(p.key) == key){
 				displayDataObject();
 				break;
 				}
@@ -259,7 +259,7 @@ int main() {
 	int menuItem;
 	int dataObjectNumber;
 	int dataObjectKey;
-	char *dataObjectName;
+	char *dataObjectName = NULL;
 
 	calculatePersonSize();
 
