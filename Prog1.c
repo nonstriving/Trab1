@@ -120,6 +120,10 @@ void writePersonSortedByKey() {
 	int retrieveDataObjectReturnValue;
 	do {
 		retrieveDataObjectReturnValue = retrieveDataObject();
+		// Trocar p com p2
+		pcopy = p;
+		p = p2;
+		p2 = pcopy;
 		writePersonToFile();
 	} while(retrieveDataObjectReturnValue);
 }
