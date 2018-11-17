@@ -156,7 +156,7 @@ void writePersonSortedByName() {
 		pcopy = p;
 		p = p2;
 		p2 = pcopy;
-		writePersonToIndexFile();
+		writePersonSortedByName();
 	} while(retrieveDataObjectReturnValue);
 }
 
@@ -213,6 +213,15 @@ void displayDataObjectByKey(int dataObjectKey){
 	}
 }
 
+void displayDataObjectByName(char *dataObjectName){
+	while(retrieveDataObject()) {
+		if(atoi(p.key) == dataObjectKey){
+			displayDataObject();
+			break;
+		}
+	}
+}
+
 int menu(){
 	//Menu
 	int option;
@@ -244,6 +253,7 @@ int main() {
 	int menuItem;
 	int dataObjectNumber;
 	int dataObjectKey;
+	char *dataObjectName;
 
 	calculatePersonSize();
 
@@ -286,7 +296,13 @@ int main() {
 			case 5 :
 				// Recuperar registro por nome
 				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rb");
-		}
+				printf("Nome do registro: ");
+				scanf("%s", dataObjectName);
+				getchar();
+				displayDataObjectByKey(dataObjectKey);
+				fclose(file);
+				break;
+		}		
 	} while(menuItem != 0);
 
 	return 0;
