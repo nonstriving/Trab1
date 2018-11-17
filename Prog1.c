@@ -222,7 +222,6 @@ void displayDataObjectByName(char *dataObjectName){
 				break;
 				}
 			}
-			break;
 		}
 	}
 }
