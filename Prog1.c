@@ -61,8 +61,8 @@ void writePersonToFile() {
 }
 
 void writePersonToIndexFile() {
-	fwrite(&p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, file);
-	fwrite(&p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, file);
+	fwrite(&p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, secondaryIndexFile);
+	fwrite(&p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, secondaryIndexFile);
 }
 
 char displayDataObject(){
@@ -111,14 +111,14 @@ void searchByKey(int key) {
 }
 
 void searchByName(char *name) {
-	fseek(file, 0, SEEK_SET);
+	fseek(secondaryIndexFile, 0, SEEK_SET);
 	while(retrieveDataObject()) {
 		if(strcmp(p.firstname, name)){
 			fseek(file, - personSize, SEEK_CUR);
 			return;
 		}
 	}
-	fseek(file, 0, SEEK_END);
+	fseek(secondaryIndexFile, 0, SEEK_END);
 }
 
 void writePersonSortedByKey() {
@@ -163,7 +163,7 @@ void writePersonSortedByName() {
 	do {
 		retrieveDataObjectReturnValue = retrieveDataObjectIndex();
 		if(retrieveDataObjectReturnValue) {
-			fseek(file, - personSize, SEEK_CUR);
+			fseek(secondaryIndexFile, - personSize, SEEK_CUR);
 		}
 		// Trocar p com p2
 		pcopy = p;
@@ -281,6 +281,7 @@ int main() {
 				secondaryIndexFile = fopen("/Users/samara/Documents/ORI/Trab1/nameIndex.bin", "wb");
 				writeData();
 				fclose(file);
+				fclose(secondaryIndexFile);
 				break;
 
 			case 2 :
@@ -323,6 +324,7 @@ int main() {
 				displayDataObjectByName(dataObjectName);
 				printf("\n5\n");
 				fclose(file);
+				fclose(secondaryIndexFile);
 				break;
 		}		
 	} while(menuItem != 0);
