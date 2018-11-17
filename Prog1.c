@@ -215,7 +215,7 @@ void displayDataObjectByKey(int dataObjectKey){
 
 void displayDataObjectByName(char *dataObjectName){
 	while(retrieveDataObject()) {
-		if(atoi(p.key) == dataObjectKey){
+		if(strcmp(dataObjectName, p.firstname) == 0){
 			displayDataObject();
 			break;
 		}
@@ -299,7 +299,7 @@ int main() {
 				printf("Nome do registro: ");
 				scanf("%s", dataObjectName);
 				getchar();
-				displayDataObjectByKey(dataObjectKey);
+				displayDataObjectByName(dataObjectName);
 				fclose(file);
 				break;
 		}		
