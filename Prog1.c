@@ -102,9 +102,18 @@ int retrieveDataObject(){
 void searchByKey(int key) {
 	fseek(file, 0, SEEK_SET);
 	while(retrieveDataObject()) {
-		printf("entered searchByKey while \n");
 		if(atoi(p.key) >= key){
-			printf("entered if\n");
+			fseek(file, - personSize, SEEK_CUR);
+			return;
+		}
+	}
+	fseek(file, 0, SEEK_END);
+}
+
+void searchByName(char *name) {
+	fseek(file, 0, SEEK_SET);
+	while(retrieveDataObject()) {
+		if(strcmp(name, p.firstname)){
 			fseek(file, - personSize, SEEK_CUR);
 			return;
 		}
@@ -116,7 +125,6 @@ void writePersonSortedByKey() {
 	person p2;
 	person pcopy;
 	p2 = p;
-	printf("p2 key %s\n", p2.key);
 	searchByKey(atoi(p.key));
 	int retrieveDataObjectReturnValue;
 	do {
@@ -267,7 +275,7 @@ int main() {
 				fclose(file);
 				break;
 			case 4 :
-				//Recuperar registro especifico
+				// Recuperar registro especifico
 				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rb");
 				printf("Key do registro: ");
 				scanf("%d", &dataObjectKey);
@@ -276,7 +284,8 @@ int main() {
 				fclose(file);
 				break;
 			case 5 :
-
+				// Recuperar registro por nome
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rb");
 		}
 	} while(menuItem != 0);
 
