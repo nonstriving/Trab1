@@ -145,7 +145,7 @@ void writePersonSortedByName() {
 	person pcopy;
 	p2 = p;
 	printf("p2 key %s\n", p2.firstname);
-	searchByName(atoi(p.firstname));
+	searchByName(p.firstname);
 	int retrieveDataObjectReturnValue;
 	do {
 		retrieveDataObjectReturnValue = retrieveDataObjectIndex();
@@ -156,7 +156,7 @@ void writePersonSortedByName() {
 		pcopy = p;
 		p = p2;
 		p2 = pcopy;
-		writePersonSortedByName();
+		writePersonToIndexFile();
 	} while(retrieveDataObjectReturnValue);
 }
 
@@ -214,10 +214,12 @@ void displayDataObjectByKey(int dataObjectKey){
 }
 
 void displayDataObjectByName(char *dataObjectName){
+	int key;
 	while(retrieveDataObjectIndex()) {
 		if(strcmp(dataObjectName, p.firstname) == 0){
-			while(retrieveDataObject){
-				if(atoi(p.key) == dataObjectKey){
+			key = atoi(p.key);
+			while(retrieveDataObject()){
+				if(key == dataObjecKey){
 				displayDataObject();
 				break;
 				}
