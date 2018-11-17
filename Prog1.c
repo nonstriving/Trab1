@@ -236,6 +236,7 @@ int menu(){
 	printf("(2) Recuperar dados\n");
 	printf("(3) Recuperar registro especifico por numero\n");
 	printf("(4) Recuperar registro especifico por key\n");
+	printf("(5) Recuperar registro especifico por nome\n");
 	printf("(0) Sair\n");
 	scanf("%d", &option);
 	getchar();
@@ -259,7 +260,7 @@ int main() {
 	int menuItem;
 	int dataObjectNumber;
 	int dataObjectKey;
-	char *dataObjectName = NULL;
+	char dataObjectName[21];
 
 	calculatePersonSize();
 
@@ -303,7 +304,8 @@ int main() {
 				// Recuperar registro por nome
 				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rb");
 				printf("Nome do registro: ");
-				scanf("%s", dataObjectName);
+				scanf("%21s", dataObjectName);
+				fillString(dataObjectName, 21);
 				getchar();
 				displayDataObjectByName(dataObjectName);
 				fclose(file);
