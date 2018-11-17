@@ -260,7 +260,7 @@ int main() {
 	int menuItem;
 	int dataObjectNumber;
 	int dataObjectKey;
-	char dataObjectName[22];
+	char dataObjectName[21];
 
 	calculatePersonSize();
 
@@ -303,11 +303,11 @@ int main() {
 			case 5 :
 				// Recuperar registro por nome
 				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rb");
+				secondaryIndexFile = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "rb");
 				printf("Nome do registro: ");
 				scanf("%s", dataObjectName);
 				getchar();
-				fillString(dataObjectName, 22);
-				printf("\n-\n");
+				fillString(dataObjectName, 21);
 				displayDataObjectByName(dataObjectName);
 				fclose(file);
 				break;
