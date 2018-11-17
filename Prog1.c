@@ -140,25 +140,14 @@ void writePersonSortedByKey() {
 	} while(retrieveDataObjectReturnValue);
 }
 
-void writeData(){
-	char option = '\0';
-
-	do {
-		readPerson();
-		writePersonSortedByKey();
-		writePersonSortedByName();
-		printf("Nova pessoa? (y/n) ");
-		scanf("%c", &option);
-		getchar();
-	} while(option=='y');
-}
-
 int retrieveDataObjectIndex(){
 	int returnValue = 0;
 
 	if(fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, secondaryIndexFile) == 21){
+		printf("\naba\n");
 		returnValue = 1;
 		fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, secondaryIndexFile);
+		printf("\nthur\n");
 	}
 
 	return returnValue;
@@ -182,6 +171,19 @@ void writePersonSortedByName() {
 		p2 = pcopy;
 		writePersonToIndexFile();
 	} while(retrieveDataObjectReturnValue);
+}
+
+void writeData(){
+	char option = '\0';
+
+	do {
+		readPerson();
+		writePersonSortedByKey();
+		writePersonSortedByName();
+		printf("Nova pessoa? (y/n) ");
+		scanf("%c", &option);
+		getchar();
+	} while(option=='y');
 }
 
 void displayData(){
