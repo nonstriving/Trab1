@@ -113,7 +113,7 @@ void searchByKey(int key) {
 void searchByName(char *name) {
 	fseek(file, 0, SEEK_SET);
 	while(retrieveDataObject()) {
-		if(strcmp(name, p.firstname)){
+		if(strcmp(p.firstname, name)){
 			fseek(file, - personSize, SEEK_CUR);
 			return;
 		}
