@@ -136,11 +136,11 @@ void writePersonSortedByName() {
 	person p2;
 	person pcopy;
 	p2 = p;
-	printf("p2 key %s\n", p2.key);
-	searchByName(atoi(p.key));
+	printf("p2 key %s\n", p2.firstname);
+	searchByName(atoi(p.firstname));
 	int retrieveDataObjectReturnValue;
 	do {
-		retrieveDataObjectReturnValue = retrieveDataObject();
+		retrieveDataObjectReturnValue = retrieveDataObjectIndex();
 		if(retrieveDataObjectReturnValue) {
 			fseek(file, - personSize, SEEK_CUR);
 		}
@@ -171,12 +171,6 @@ int retrieveDataObjectIndex(){
 	if(fread(p.firstname, sizeof(char), sizeof(p.firstname)/sizeof(char) - 1, secondaryIndexFile) == 21){
 		returnValue = 1;
 		fread(p.key, sizeof(char), sizeof(p.key)/sizeof(char) - 1, secondaryIndexFile);
-		fread(p.lastname, sizeof(char), sizeof(p.lastname)/sizeof(char) - 1, secondaryIndexFile);
-		fread(p.address, sizeof(char), sizeof(p.address)/sizeof(char) - 1, secondaryIndexFile);
-		fread(p.city, sizeof(char), sizeof(p.city)/sizeof(char) - 1, secondaryIndexFile);
-		fread(p.state, sizeof(char), sizeof(p.state)/sizeof(char) - 1, file);
-		fread(p.zip, sizeof(char), sizeof(p.zip)/sizeof(char) - 1, secondaryIndexFile);
-		fread(p.phone, sizeof(char), sizeof(p.phone)/sizeof(char)- 1, secondaryIndexFile);
 	}
 
 	return returnValue;
@@ -281,6 +275,8 @@ int main() {
 				displayDataObjectByKey(dataObjectKey);
 				fclose(file);
 				break;
+			case 5 :
+
 		}
 	} while(menuItem != 0);
 
