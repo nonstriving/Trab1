@@ -146,7 +146,7 @@ void writeData(){
 	do {
 		readPerson();
 		writePersonSortedByKey();
-		writePersonToIndexFile();
+		writePersonSortedByName();
 		printf("Nova pessoa? (y/n) ");
 		scanf("%c", &option);
 		getchar();
@@ -216,12 +216,18 @@ void displayDataObjectByKey(int dataObjectKey){
 void displayDataObjectByName(char *dataObjectName){
 	int key;
 	while(retrieveDataObjectIndex()) {
+		printf("\n1\n");
 		if(strcmp(dataObjectName, p.firstname) == 0){
+			printf("\n2\n");
 			key = atoi(p.key);
+			printf("\n3\n");
 			while(retrieveDataObject()){
+				printf("\n4\n");
 				if(atoi(p.key) == key){
-				displayDataObject();
-				break;
+					printf("\n5\n");
+					displayDataObject();
+					printf("\n6\n");
+					break;
 				}
 			}
 		}
@@ -270,7 +276,7 @@ int main() {
 			case 1 :
 				// Ler registros Pessoa
 				file = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "wb+");
-				secondaryIndexFile = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "wb");
+				secondaryIndexFile = fopen("/Users/samara/Documents/ORI/Trab1/nameIndex.bin", "wb");
 				writeData();
 				fclose(file);
 				break;
@@ -293,7 +299,7 @@ int main() {
 				break;
 			case 4 :
 				// Recuperar registro especifico
-				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rb");
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "rb");
 				printf("Key do registro: ");
 				scanf("%d", &dataObjectKey);
 				getchar();
@@ -302,13 +308,18 @@ int main() {
 				break;
 			case 5 :
 				// Recuperar registro por nome
-				file = fopen("/Users/samara/Documents/ORI/Trab1/data.txt", "rb");
-				secondaryIndexFile = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "rb");
+				file = fopen("/Users/samara/Documents/ORI/Trab1/data.bin", "rb");
+				secondaryIndexFile = fopen("/Users/samara/Documents/ORI/Trab1/secondaryIndex.bin", "rb");
+				printf("\n1\n");
 				printf("Nome do registro: ");
 				scanf("%s", dataObjectName);
+				printf("\n2\n");
 				getchar();
+				printf("\n3\n");
 				fillString(dataObjectName, 21);
+				printf("\n4\n");
 				displayDataObjectByName(dataObjectName);
+				printf("\n5\n");
 				fclose(file);
 				break;
 		}		
